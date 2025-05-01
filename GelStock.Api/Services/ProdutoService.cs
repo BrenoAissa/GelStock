@@ -14,6 +14,15 @@ namespace GelStock.Api.Services
         {
             return await _gelStockDbContext.Produtos.ToListAsync();
         }
+        public async Task<Produto> BuscarItemPorIdAsync(int produtoId)
+        {
+            return await _gelStockDbContext.Produtos.FindAsync(produtoId);
+        }
+
+        public async Task<List<Produto>> ListarItemPorNomeAsync(string produtoNome)
+        {
+            return await _gelStockDbContext.Produtos.Where(p => produtoNome.Contains(p.Nome)).ToListAsync();
+        }
 
         public async Task<Produto> CriarItemAsync(Produto produto)
         {
