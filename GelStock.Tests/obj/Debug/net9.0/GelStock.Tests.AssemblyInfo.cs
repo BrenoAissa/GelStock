@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GelStock.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8133f659a89c775cc8ebfdbeea3f177317f94dbd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1799f7a78216406671cc2d66495109519ee11f53")]
 [assembly: System.Reflection.AssemblyProductAttribute("GelStock.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GelStock.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

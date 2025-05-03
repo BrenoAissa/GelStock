@@ -13,7 +13,7 @@ namespace GelStock.Tests
         public ProdutoServiceTests() 
         {
             var options = new DbContextOptionsBuilder<GelStockDbContext>()
-                .UseInMemoryDatabase(databaseName: "GelStockTestDb")
+                .UseInMemoryDatabase(databaseName: "StorageAPP")
                 .Options;
 
             _context = new GelStockDbContext(options);
@@ -33,6 +33,22 @@ namespace GelStock.Tests
             var produtos = await _context.Produtos.ToListAsync();
             Assert.Single(produtos);
             Assert.Equal("Produto Teste", produtos[0].Nome);
+        }
+
+        [Fact]
+        public async Task ListarTodosItensAsync_DeveRetornarTodosProdutos()
+        {
+            //Arrange
+            _context.Produtos.Add(new Produto { Nome = "Produto Teste0", Tipo = "Teste0", Fabricante = "Teste0", Quantidade = 1 });
+            _context.Produtos.Add(new Produto { Nome = "Produto Teste1", Tipo = "Teste1", Fabricante = "Teste1", Quantidade = 1 });
+            await _context.SaveChangesAsync();
+
+            //Act
+            var resultado = await _service.ListarTodosItensAsync();
+
+            //Assert
+            Assert.NotNull(resultado);
+            Assert.Equal(2, resultado.Count);
         }
     }
 }
