@@ -2,6 +2,6 @@
 {
     public class ProdutoNaoExisteException : GelStockException
     {
-        public ProdutoNaoExisteException(string nome) : base($"Produto '{nome}' não existe") { }
+        public ProdutoNaoExisteException(int id) : base($"Produto '{id}' não existe") { }
     }
 }
