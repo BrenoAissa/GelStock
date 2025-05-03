@@ -10,6 +10,15 @@ namespace GelStock.Api.Services
         private readonly GelStockDbContext _gelStockDbContext;
         public ProdutoService(GelStockDbContext gelStockDbContext) { _gelStockDbContext = gelStockDbContext; }
 
+        public async Task<Produto> CriarItemAsync(Produto produto)
+        {
+            var produtoExistente = await _gelStockDbContext.Produtos.FirstOrDefaultAsync(p => p.Nome == produto.Nome);
+            if (produtoExistente != null) throw new ProdutoJaExisteException(produto.Nome);
+
+            _gelStockDbContext.Produtos.Add(produto);
+            await _gelStockDbContext.SaveChangesAsync();
+            return produto;
+        }
         public async Task<List<Produto>> ListarTodosItensAsync()
         {
             return await _gelStockDbContext.Produtos.ToListAsync();
@@ -21,34 +30,17 @@ namespace GelStock.Api.Services
 
         public async Task<List<Produto>> ListarItemPorNomeAsync(string produtoNome)
         {
-            return await _gelStockDbContext.Produtos.Where(p => produtoNome.Contains(p.Nome)).ToListAsync();
+            return await _gelStockDbContext.Produtos.Where(p => p.Nome.Contains(produtoNome)).ToListAsync();
         }
 
-        public async Task<Produto> CriarItemAsync(Produto produto)
+        public async Task<Produto> ExcluirItemAsync(int produtoId)
         {
-            try
-            {
-                _gelStockDbContext.Produtos.Add(produto);
-                await _gelStockDbContext.SaveChangesAsync();
-                return produto;
-            }
-            catch (Exception)
-            {
-                throw new ProdutoJaExisteException(produto.Nome);
-            }
-        }
+            var produto = await _gelStockDbContext.Produtos.FindAsync(produtoId);
+            if (produto == null) throw new ProdutoNaoExisteException(produtoId);
 
-        public async Task<Produto> ExcluirItemAsync(Produto produto)
-        {
-            try { 
-                _gelStockDbContext.Produtos.Remove(produto);
-                await _gelStockDbContext.SaveChangesAsync();
-                return produto;
-            }
-            catch (Exception)
-            {
-                throw new ProdutoNaoExisteException(produto.Nome);
-            }
+            _gelStockDbContext.Produtos.Remove(produto);
+            await _gelStockDbContext.SaveChangesAsync();
+            return produto;
         }
     }
 }
