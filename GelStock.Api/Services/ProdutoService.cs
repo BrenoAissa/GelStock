@@ -33,6 +33,18 @@ namespace GelStock.Api.Services
             return await _gelStockDbContext.Produtos.Where(p => p.Nome.Contains(produtoNome)).ToListAsync();
         }
 
+        public async Task<Produto> AtualizarItemAsync(Produto produto)
+        {
+            var produtoExistente = await _gelStockDbContext.Produtos.FindAsync(produto.Id);
+            if (produtoExistente == null) throw new ProdutoNaoExisteException(produto.Id);
+
+            produtoExistente.Nome = produto.Nome;
+            produtoExistente.Quantidade = produto.Quantidade;
+
+            await _gelStockDbContext.SaveChangesAsync();
+            return produtoExistente;
+        }
+
         public async Task<Produto> ExcluirItemAsync(int produtoId)
         {
             var produto = await _gelStockDbContext.Produtos.FindAsync(produtoId);

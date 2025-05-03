@@ -24,7 +24,7 @@ namespace GelStock.Tests
         public async Task CriarItemAsync_ProdutoValido_DeveAdicionarComSucesso()
         {
             // Arrange
-            var produto = new Produto { Nome = "Produto Teste", Tipo = "Teste", Fabricante = "Teste", Quantidade = "1"};
+            var produto = new Produto { Nome = "Produto Teste", Tipo = "Teste", Fabricante = "Teste", Quantidade = 1};
 
             // Act
             await _service.CriarItemAsync(produto);
