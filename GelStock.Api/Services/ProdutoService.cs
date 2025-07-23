@@ -25,7 +25,9 @@ namespace GelStock.Api.Services
         }
         public async Task<Produto> BuscarItemPorIdAsync(int produtoId)
         {
-            return await _gelStockDbContext.Produtos.FindAsync(produtoId);
+            var produto = await _gelStockDbContext.Produtos.FindAsync(produtoId);
+            if(produto == null) throw new ProdutoNaoExisteException(produtoId);
+            return produto;
         }
 
         public async Task<List<Produto>> ListarItemPorNomeAsync(string produtoNome)
