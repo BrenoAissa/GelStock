@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Helpers\CategoriaHelpers\**" />
+    <EmbeddedResource Remove="Helpers\CategoriaHelpers\**" />
+    <None Remove="Helpers\CategoriaHelpers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.2" />
     <PackageReference Include="FluentAssertions" Version="8.3.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.4" />
@@ -19,11 +25,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GelStock.Api\GelStock.Api.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Helpers\CategoriaHelpers\" />
-    <Folder Include="Helpers\UsuarioHelpers\" />
   </ItemGroup>
 
 </Project>
